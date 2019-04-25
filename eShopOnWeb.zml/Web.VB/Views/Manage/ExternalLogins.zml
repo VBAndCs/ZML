@@ -1,0 +1,47 @@
+﻿<z:model type="ExternalLoginsViewModel" />
+<z:title>Manage your external logins</z:title>
+<z:viewdata @ManageNavPages.ActivePageKey="@ManageNavPages.ExternalLogins" />
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<z:if condition="Model.CurrentLogins?.Count > 0">
+    <h4>Registered Logins</h4>
+    <table class="table">
+        <tbody>
+            <z:foreach var="login" in="Model.CurrentLogins">
+                <tr>
+                    <td>@login.LoginProvider</td>
+                    <td>
+                        <z:if condition="Model.ShowRemoveButton">
+                            <z:then>
+                                <form asp-action="RemoveLogin" method="post">
+                                    <div>
+                                        <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                        <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                        <button type="submit" class="btn btn-default" title="Remove this @login.LoginProvider login from your account">Remove</button>
+                                    </div>
+                                </form>
+                            </z:then>
+                            <z:else>
+                                <z:text>&nbsp;</z:text>
+                            </z:else>
+                        </z:if>
+                    </td>
+                </tr>
+            </z:foreach>
+        </tbody>
+    </table>
+</z:if>
+
+<z:if condition="Model.OtherLogins?.Count > 0">
+    <h4>Add another service to log in.</h4>
+    <hr />
+    <form asp-action="LinkLogin" method="post" class="form-horizontal">
+        <div id="socialLoginList">
+            <p>
+                <z:foreach var="provider" in="Model.OtherLogins">
+                    <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                </z:foreach>
+            </p>
+        </div>
+    </form>
+</z:if>

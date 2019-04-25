@@ -1,0 +1,44 @@
+﻿<z:page />
+<z:model type="IndexModel" />
+<z:title>Catalog</z:title>
+
+<section class="esh-catalog-hero">
+    <div class="container">
+        <img class="esh-catalog-title" src="~/images/main_banner_text.png" />
+    </div>
+</section>
+
+<section class="esh-catalog-filters">
+    <div class="container">
+        <form method="get">
+            <label class="esh-catalog-label" data-title="brand">
+                <select asp-for="CatalogModel.BrandFilterApplied" asp-items="CatalogModel.Brands" class=" esh-catalog-filter"></select>
+            </label>
+            <label class="esh-catalog-label" data-title="type">
+                <select asp-for="CatalogModel.TypesFilterApplied" asp-items="CatalogModel.Types" class=" esh-catalog-filter"></select>
+            </label>
+            <input class="esh-catalog-send" type="image" src="images/arrow-right.svg" />
+        </form>
+    </div>
+</section>
+
+<div class="container">
+    <z:if condition="Model.CatalogModel.CatalogItems.Any()">
+        <z:then>
+            <partial name="_pagination" for="CatalogModel.PaginationInfo" />
+            <div class="esh-catalog-items row">
+                <z:foreach var="catItem" in="Model.CatalogModel.CatalogItems">
+                    <div class="esh-catalog-item col-md-4">
+                        <partial name="_product" for="@catItem" />
+                    </div>
+                </z:foreach>
+            </div>
+            <partial name="_pagination" for="CatalogModel.PaginationInfo" />
+        </z:then>
+        <z:else>
+            <div class="esh-catalog-items row">
+                THERE ARE NO RESULTS THAT MATCH YOUR SEARCH
+            </div>
+        </z:else>
+    </z:if>
+</div>

@@ -1,0 +1,60 @@
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.deps.json
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.dll
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.pdb
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.dll
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.pdb
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csprojAssemblyReference.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfo.cs
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CopyComplete
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.dll
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.deps.json
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csprojAssemblyReference.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfo.cs
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CopyComplete
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.deps.json
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csprojAssemblyReference.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfo.cs
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CopyComplete
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.deps.json
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csprojAssemblyReference.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfo.cs
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CopyComplete
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\Vazor\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.deps.json
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.dll
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\Infrastructure.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csprojAssemblyReference.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CoreCompileInputs.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfoInputs.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.AssemblyInfo.cs
+F:\_VS.NET\ZML\eShopOnWeb.zml\Infrastructure\obj\Debug\netstandard2.0\Infrastructure.csproj.CopyComplete

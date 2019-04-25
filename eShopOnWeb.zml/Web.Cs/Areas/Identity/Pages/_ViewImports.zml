@@ -1,0 +1,6 @@
+﻿<z:using Microsoft.AspNetCore.Identity
+  Microsoft.eShopWeb.Web.Areas.Identity
+  Microsoft.eShopWeb.Infrastructure.Identity />
+<z:namespace ns="Microsoft.eShopWeb.Web.Areas.Identity.Pages"/>
+<z:helpers Microsoft.AspNetCore.Mvc.TagHelpers="*"/>
+

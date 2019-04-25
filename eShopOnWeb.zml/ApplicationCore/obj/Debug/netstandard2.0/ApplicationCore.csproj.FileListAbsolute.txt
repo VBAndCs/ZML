@@ -1,0 +1,44 @@
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.deps.json
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.dll
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.pdb
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csprojAssemblyReference.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfo.cs
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.dll
+C:\Users\MHG\Downloads\Compressed\eShopOnWeb-master\src\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.deps.json
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfo.cs
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.Vazor\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.deps.json
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csprojAssemblyReference.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfo.cs
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor Website\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.deps.json
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csprojAssemblyReference.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfoInputs.cache
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfo.cs
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\Vazor\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.deps.json
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.dll
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\bin\Debug\netstandard2.0\ApplicationCore.pdb
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csprojAssemblyReference.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.csproj.CoreCompileInputs.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfoInputs.cache
+F:\_VS.NET\ZML\eShopOnWeb.zml\ApplicationCore\obj\Debug\netstandard2.0\ApplicationCore.AssemblyInfo.cs
