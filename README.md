@@ -1,6 +1,12 @@
 # ZML: The XML Razor
 ZML is a tagged programming language designed to create Razor Views/Pages that do not have to contain any C#, VB.NET or F# code, so the Razor entirely looks like a normal XML file, that is valid to use in any ASP.NET app regardless of the programming language it uses.
 
+# Install ZML NuGet:
+Use this command line in Pachage Manager
+```
+Install-Package ZML.1.0 -Version 1.0.0 
+```
+
 **How does ZML work**:
 you can use ZML in two ways:
 1. add .zml files to your project (and choose to open them with the HTML editor), then call the `zml.ZmlPages.Compile()` method in the `Startup.Configure()` method. This will search for all .zml files in your project, and generate the cshtml files from them. This process will only include .zml files that have been modified since last compilation. Using auto generated cshtml files grantees that your app works as a standard Razor app, giving you all control over razor options, including using pre compiled cshtml files.
