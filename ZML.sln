@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ZML", "ZML\ZML.vbproj", "{0A511272-6E1F-4307-9B2A-B1B86D941FA8}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ZML.Test", "ZML.Test\ZML.Test.vbproj", "{F3F4A778-F6F8-4A69-9B94-93DA23261C3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A511272-6E1F-4307-9B2A-B1B86D941FA8}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{0A511272-6E1F-4307-9B2A-B1B86D941FA8}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{0A511272-6E1F-4307-9B2A-B1B86D941FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A511272-6E1F-4307-9B2A-B1B86D941FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3F4A778-F6F8-4A69-9B94-93DA23261C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3F4A778-F6F8-4A69-9B94-93DA23261C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3F4A778-F6F8-4A69-9B94-93DA23261C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3F4A778-F6F8-4A69-9B94-93DA23261C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C6997D79-919A-4F88-BC43-B1E87410FF13}
+	EndGlobalSection
+EndGlobal
