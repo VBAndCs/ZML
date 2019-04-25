@@ -1,7 +1,7 @@
 # ZML: The XML Razor
 ZML is a tagged programming language designed to create Razor Views/Pages that do not have to contain any C#, VB.NET or F# code, so the Razor entirely looks like a normal XML file, that is valid to use in any ASP.NET app regardless of the programming language it uses.
 
-** How does ZML work **:
+**How does ZML work**:
 you can use ZML in two ways:
 1. add .zml files to your project (and choose to open them with the HTML editor), then call the `zml.ZmlPages.Compile()` method in the `Startup.Configure()` method. This will search for all .zml files in your project, and generate the cshtml files from them. This process will only include .zml files that have been modified since last compilation. Using auto generated cshtml files grantees that your app works as a standard Razor app, giving you all control over razor options, including using pre compiled cshtml files.
 
@@ -58,68 +58,68 @@ All ZML tags belongs to the `z:` namespace (such as `<z:text>`) to avoid any con
 ```
 I will list ZML tags in brief, and you can look at the eShopOnWeb_zml and the ZML.Test projects, to see examples on how to uses them. I will provide a full documentation later, but this needs time.
 
-** `<z:using x />` / `<z:imports x />` **
+**`<z:using x />` / `<z:imports x />`**
 Generates the `@using x` statement.
 
-** `<z:namespace x />` **
+**`<z:namespace x />`**
 Generates the `@namespace x` statement.
 
-** `<z:helpers x="*" />` **
+**`<z:helpers x="*" />`**
 Generates the `@addTagHelper *, x` statement.
 
-** `<z:page [route="x"] />` **
+**`<z:page [route="x"] />`**
 Generates the `@page ["x"]` statement.
 
-** `<z:model type="Integer" />` **
+**`<z:model type="Integer" />`**
 Generates the `@model int` statement.
 
-** `<z:layout page="x" />` **
+**`<z:layout page="x" />`**
 Generates the `@{Layout = "x";}` statement.
 
-** `<z:inject x.type="int" />` **
+**`<z:inject x.type="int" />`**
 Generates the `@inject int x` statement.
 
-** `<z:title>test</z:title>` **
+**`<z:title>test</z:title>`**
 Generates the `@{ ViewData["Title"] = "test"; }` statement.
 
-** `<z:title />` **
+**`<z:title />`**
 Generates the `@ViewData["Title"]` expression to read Title key.
 
-** `<z:viewdata x="y"/>` **
+**`<z:viewdata x="y"/>`**
 Generates the `@{ ViewData["x"] = "y"; }` expression to read Title key.
 
-** `<z:text>any text</z:text>` **
+**`<z:text>any text</z:text>`**
 Generates the `@: any text` expression.
 
-** `<z:comment>any block</z:comment>` **
+**`<z:comment>any block</z:comment>`**
 Generates the `@* any block *@` razor comment.
 
-** `<z:comment>block</z:comment>` **
+**`<z:comment>block</z:comment>`**
 Generates the `@* block *@` razor comment.
 
-** `<z:section name="x">block</z:section>` **
+**`<z:section name="x">block</z:section>`**
 Generates the `@section x { block }` razor block.
 
-** `<z:displayfor var="x" return="x.Name" />` **
+**`<z:displayfor var="x" return="x.Name" />`**
 Generates the `@Html.DisplayFor(x => x.Name)` helper method.
 
-** `<z:displaynamefor var="x" return="x.Name" />` **
+**`<z:displaynamefor var="x" return="x.Name" />`**
 Generates the `@Html.DisplayNameFor(x => x.Name)` helper method.
 
-** `<z:declare x="3"/> ` **
+**`<z:declare x="3"/> `**
 Generates the `@{ var x=3; }` expression.
 
-** `<z:set x="3"/> ` **
+**`<z:set x="3"/> `**
 Generates the `@{ x=3; }` expression.
 
-** `<z:get object="x"/> ` **
+**`<z:get object="x"/> `**
 Generates the `@x` expression, which you can use directly instead of using the get tag! but the get tag maybe useful when you read an indexed value, for example: `<z:get object="x" key="0"/> ` generates: `@x[0]`.
 Note: You can use the key attribute also with viewdata, declare and set attributes.
 
-** `<z:check condition="x" ifnull="y" />` **
+**`<z:check condition="x" ifnull="y" />`**
 Generates the `x ?? y` expression.
 
-** `<z:if></z:if >` **
+**`<z:if></z:if >`**
 Generates if statements.. In the simplest form:
 ```xml
 <z:if condition="cond">
@@ -149,7 +149,7 @@ And you can also have `else if` and `else` statements, in the form:
 </z:if >
 ```
 
-** `<z:foreach></z: foreach>` **
+**`<z:foreach></z: foreach>`**
 Generates `foreach` loop statement.. It has the following form:
 ```xml
 <z:foreach type="int" var="x" in="obj">
@@ -159,7 +159,7 @@ Generates `foreach` loop statement.. It has the following form:
 
 You can omit the `type` attribute so `var` will be used to infer the variable type. 
 
-** `<z:for></z: for>` **
+**`<z:for></z: for>`**
 Generates `for` loop statement.. It has two different forms:
 1. VB.NET alike form:
 ```xml
@@ -189,7 +189,7 @@ The while form of `<z:for>` tag can do the job of `do` and `while` loops in both
 
 but if `i` is defined outside the loop, you'd better use the `<z:while>` tag.
 
-** `<z:while></z:while>` **:
+**`<z:while></z:while>`**:
 It has the form:
 ```xml
 <z:while [condition="cond"]>
@@ -197,7 +197,7 @@ It has the form:
 </z:while>
 ```
 
-** `<z:exit />`, `<z:break />` and `<z:continue />` **:
+**`<z:exit />`, `<z:break />` and `<z:continue />`**:
 Use thes tags inside loops.
 Both `<z:exit />`, `<z:break />` generate the `break` statement.
 `<z:continue />` generates the `continue` statement.
@@ -238,7 +238,7 @@ Now, when you use the this label in break or exit tags, this generates a `goto b
 break_for1:
 ```
 
-** `<z:invoke> </z:invoke>` **
+**`<z:invoke> </z:invoke>`**
 generates expressions for getting properties, indeesrs and method call values. In simple cases like `@x.Trim()`, you don't need to use this tag like this: `<z:invoke method="x.Trim" />`! But invoke tag can be useful when the method have complex params like lambda expressions that you don't like to write them with C# syntax! For example:
 ```xml
 <z:invoke method="Foo">
@@ -256,5 +256,5 @@ You can also have named args, by using the name attribute of the arg tag, such a
 `<z:arg name="required">false</z:arg>`
 which will generate the argument: `required: false`
 
-** `<z:lambda m>m.Name</z: lambda>` **
+**`<z:lambda m>m.Name</z: lambda>`**
 Generates the lambda expression `m => m.Name` that can be used inside invoke, declare or set tags. You can use the return attribute to set the labda return value, or you can set it as the content of the lambda tag so that you can use another invokes or lambdas.
