@@ -1,0 +1,128 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\_VS.NET\\ZML\\ZML.Test\\ZML.Test.vbproj": {}
+  },
+  "projects": {
+    "F:\\_VS.NET\\ZML\\ZML.Test\\ZML.Test.vbproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\_VS.NET\\ZML\\ZML.Test\\ZML.Test.vbproj",
+        "projectName": "ZML.Test",
+        "projectPath": "F:\\_VS.NET\\ZML\\ZML.Test\\ZML.Test.vbproj",
+        "packagesPath": "C:\\Users\\MHG\\.nuget\\packages\\",
+        "outputPath": "F:\\_VS.NET\\ZML\\ZML.Test\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MHG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "F:\\_VS.NET\\ZML\\ZML\\ZML.vbproj": {
+                "projectPath": "F:\\_VS.NET\\ZML\\ZML\\ZML.vbproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[1.4.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.0.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "F:\\_VS.NET\\ZML\\ZML\\ZML.vbproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\_VS.NET\\ZML\\ZML\\ZML.vbproj",
+        "projectName": "ZML",
+        "projectPath": "F:\\_VS.NET\\ZML\\ZML\\ZML.vbproj",
+        "packagesPath": "C:\\Users\\MHG\\.nuget\\packages\\",
+        "outputPath": "F:\\_VS.NET\\ZML\\ZML\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\MHG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

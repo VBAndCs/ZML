@@ -1,5 +1,5 @@
 ﻿Imports Microsoft.VisualStudio.TestTools.UnitTesting
-Imports Vazor
+Imports ZML
 
 
 <TestClass>

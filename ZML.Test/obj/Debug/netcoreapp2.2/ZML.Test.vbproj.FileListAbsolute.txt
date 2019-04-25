@@ -1,0 +1,17 @@
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.Test.deps.json
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.Test.runtimeconfig.json
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.Test.runtimeconfig.dev.json
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.Test.dll
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.Test.pdb
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.dll
+F:\_VS.NET\ZML\ZML.Test\bin\Debug\netcoreapp2.2\ZML.pdb
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.vbprojAssemblyReference.cache
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.vbproj.CoreCompileInputs.cache
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.AssemblyInfoInputs.cache
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.AssemblyInfo.vb
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.vbproj.CopyComplete
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.dll
+F:\_VS.NET\ZML\ZML.Test\obj\Debug\netcoreapp2.2\ZML.Test.pdb
