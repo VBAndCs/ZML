@@ -39,7 +39,8 @@ Public Class Zml
                 absLine = absLine.Replace(("< ", "<"), (" >", ">"))
                 If L = absLine.Length Then Exit Do
             Loop
-            sb.AppendLine(spaces + absLine)
+            sb.Append(spaces)
+            sb.AppendLine(absLine)
         Next
 
         x = sb.ToString()

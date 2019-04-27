@@ -139,7 +139,9 @@ $"@{{
         y = x.ParseZml()
         Assert.AreEqual(y, $"@{{ arr = new String[]{{}}; }}")
 
-        x = <zml xmlns:z="zml"><z:set object="dict" key="Name">Adam</z:set></zml>
+        x = <zml xmlns:z="zml">
+                <z:set object="dict" key="Name">Adam</z:set>
+            </zml>
         y = x.ParseZml()
         Assert.AreEqual(y, $"@{{ dict[{Qt}Name{Qt}] = {Qt}Adam{Qt}; }}")
 

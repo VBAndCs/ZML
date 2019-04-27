@@ -79,6 +79,7 @@
     Public Const Ampersand = "__amp__;"
     Public Const GreaterThan = "__gtn__;"
     Public Const LessThan = "__ltn__;"
+    Public Const tempComma = "__cma__;"
     Public Const ZmlNamespacee = "xmlns:z=""zml"""
     Public Const TempRoot = "<zml " & ZmlNamespacee & ">"
     Public Const TempTagStart = "<zml>"

@@ -17,13 +17,22 @@
             Case "single"
                 Return "float"
             Case Else
-                Return type.Trim().Replace(
-                    (" Byte", " byte"), (" SBtye", " sbyte"), (" Short", " short"),
-                    (" UShort", " ushort"), (" Long", " long"), (" ULong", " ulong"),
-                    (" Double", " double"), (" Decimal", " decimal"),
-                    (" Integer", " int"), (" UInteger", " uint"), (" Single", " float"),
-                    ("(Of ", LessThan), ("of ", LessThan), (")", GreaterThan)
-                )
+                Dim st = type.Length - 1
+                Do
+                    st = type.LastIndexOf("(of ", st, StringComparison.InvariantCultureIgnoreCase)
+                    If st = -1 Then Return type
+                    Dim en = type.IndexOf(")", st)
+                    Dim subTypes = type.Substring(st + 4, en - st - 4).Split({", "}, StringSplitOptions.RemoveEmptyEntries)
+                    Dim sb As New Text.StringBuilder()
+                    For Each subtype In subTypes
+                        sb.Append(convVars(subtype))
+                        sb.Append(tempComma)
+                        sb.Append(" ")
+                    Next
+                    If sb.Length > 0 Then sb.Remove(sb.Length - tempComma.Length - 1, tempComma.Length + 1)
+                    type = type.Substring(0, st) + LessThan + sb.ToString + GreaterThan + type.Substring(en + 1)
+                    st = st - 1
+                Loop
 
         End Select
 

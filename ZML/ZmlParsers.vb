@@ -1,12 +1,14 @@
 ﻿Partial Public Class Zml
 
     Function ParseZml(zml As XElement) As String
+
         BlockStart = AddToCsList("{")
         BlockEnd = AddToCsList("}")
 
         ' <z:displayfor var="modelItem" return="item.OrderDate" />
 
         Xml = New XElement(zml)
+        PreserveLines(Xml)
         FixSelfClosing()
         ParseImports()
         ParseHelperImports()
@@ -45,6 +47,7 @@
                    (Ampersand, "&"), (tempText, ""), (AtSymbole, "@"),
                    (Qt + ChngQt, SnglQt),
                    (ChngQt + Qt, SnglQt),
+                   (tempComma, ","),
                    (ChngQt, ""), (SnglQt + SnglQt, Qt),
                    (doctypeTag, doctypeStr)
                  ).Trim(" ", vbCr, vbLf)
@@ -67,11 +70,38 @@
                 Else
                     sb.AppendLine(line)
                 End If
-
             End If
         Next
-        Return sb.ToString().Trim(" ", vbCr, vbLf)
+        Return sb.ToString().
+            Replace(
+            (TempTagStart, ""), (TempTagEnd, ""),
+            (TempBody, "")).Trim(" ", vbCr, vbLf)
     End Function
+
+    Private Sub PreserveLines(x As XElement)
+        If x Is Nothing Then Return
+        If x.Nodes.Count = 1 AndAlso TypeOf x.Nodes(0) Is XText Then
+            If x.Name.LocalName <> "zml" Then
+                Dim n = x.Nodes(0).ToString()
+                If ContainsLambda(n) Then
+                    x.Nodes(0).ReplaceWith(ParseRawLmbda(n))
+                End If
+            End If
+            Return
+        End If
+
+        For Each node In x.Nodes
+            If TypeOf node Is XText Then
+                Dim s = TempTagStart + ParseRawLmbda(node.ToString().Trim(" "c, CChar(vbCr), CChar(vbLf))) + TempTagEnd
+                node.ReplaceWith(XElement.Parse(s))
+                ' Loop is broken. Reapeat from start
+                PreserveLines(x)
+                Exit For
+            ElseIf TypeOf node Is XElement Then
+                PreserveLines(node)
+            End If
+        Next
+    End Sub
 
     Private Sub FixSelfClosing()
         Dim tagNamess = {"span", "label"}
@@ -116,9 +146,18 @@
             If value.Contains(SnglQt & SnglQt) Then
                 attr.Value = ChngQt & value & ChngQt
             End If
+            If ContainsLambda(value) Then
+                attr.Value = ParseRawLmbda(attr.Value)
+            End If
         Next
 
     End Sub
+
+    Private Function ContainsLambda(x As String) As Boolean
+        Return x.Contains("=>") OrElse
+            x.Contains("=&gt;") OrElse
+            x.Contains("=" & GreaterThan)
+    End Function
 
     Private Sub ParseTitle()
         Dim viewTitle = (From elm In Xml.Descendants()
@@ -235,7 +274,7 @@
             Else
                 _return = At(If(helper.Attribute(returnAttr)?.Value, helper.Value))
             End If
-            Dim cs = $"@Html.{methodName}({var} => {_return})"
+            Dim cs = $"@Html.{methodName}({var} ={GreaterThan} {_return})"
             helper.ReplaceWith(AddToCsList(cs, helper))
             ParseHtmlHelper(tag, methodName)
         End If
@@ -726,7 +765,7 @@
                         If invoke.Name.ToString = awaitTag Then
                             cs = "@{ " & awaitKeyword & $" {indexer}[{args}]" + "; }"
                         Else
-                            cs = $"@{indexer}([args])"
+                            cs = $"@{indexer}[{args}]"
                         End If
                     Case Else
                         Dim method = convVars(At(If(invoke.Attribute(methodAttr)?.Value, invoke.Attributes()(0).Name.ToString())))
@@ -743,7 +782,12 @@
                                     If arg.Nodes.Count > 0 AndAlso TypeOf arg.Nodes(0) Is XElement Then
                                         sbArgs.Append(ParseNestedInvoke(arg.Nodes(0)))
                                     Else
-                                        sbArgs.Append(Quote(If(arg.Value, arg.Attribute(valueAttr).Value)))
+                                        Dim exp = If(arg.Value, arg.Attribute(valueAttr).Value)
+                                        If ContainsLambda(exp) Then
+                                            sbArgs.Append(ParseRawLmbda(exp))
+                                        Else
+                                            sbArgs.Append(Quote(exp))
+                                        End If
                                     End If
                                     sbArgs.Append(", ")
                                 Case Else
@@ -768,6 +812,69 @@
             ParseInvokes()
         End If
     End Sub
+
+    Private Function ParseRawLmbda(exp As String) As String
+        Dim pos = 0
+        Do
+            pos = Math.Max(
+                        exp.IndexOf("fn(", pos, StringComparison.InvariantCultureIgnoreCase),
+                        exp.IndexOf("fn (", pos, StringComparison.InvariantCultureIgnoreCase))
+
+            If pos = -1 Then Return exp
+            If pos = 0 Then Exit Do
+            Select Case exp.Substring(pos - 1, 1)
+                Case "a" To "z", "A" To "Z", "_"
+                    pos += 1
+                Case Else
+                    Exit Do
+            End Select
+        Loop
+
+        Dim lambda = exp.Substring(pos + 2).Trim
+        Dim prefix = If(pos = 0, "", exp.Substring(0, pos))
+
+        Dim L = 2
+        pos = lambda.IndexOf("=>")
+        If pos = -1 Then
+            pos = lambda.IndexOf("=&gt;")
+            If pos = -1 Then
+                pos = lambda.IndexOf("=" & GreaterThan)
+                L = GreaterThan.Length + 1
+            Else
+                L = 5
+            End If
+
+        End If
+
+        Dim header = convVars(lambda.Substring(0, pos).Trim())
+        Dim Body = lambda.Substring(pos + L).Trim()
+
+        Dim params = header.Substring(1, header.Length - 2).Split(","c)
+        Dim paramList As New Text.StringBuilder()
+        For Each param In params
+                Dim p = param.Split({" as ", " As "}, StringSplitOptions.RemoveEmptyEntries)
+                If p.Length = 1 Then
+                    paramList.Append(p(0).Trim())
+                Else
+                    paramList.Append(convVars(p(1).Trim()))
+                    paramList.Append(" ")
+                    paramList.Append(convVars(p(0).Trim()))
+                End If
+                paramList.Append(", ")
+            Next
+            If paramList.Length > 0 Then paramList.Remove(paramList.Length - 2, 2)
+
+        If ContainsLambda(Body) Then Body = ParseRawLmbda(Body)
+
+        If params.Length > 1 Then
+            Return $"{prefix}({paramList.ToString()}) ={GreaterThan} {Body}"
+        ElseIf paramList.ToString.Contains(" ") Then
+            Return $"{prefix}({paramList.ToString()}) ={GreaterThan} {Body}"
+        Else
+            Return $"{prefix}{paramList.ToString()} ={GreaterThan} {Body}"
+        End If
+
+    End Function
 
     Private Sub ParseLambdas()
         Dim lambda = (From elm In Xml.Descendants()
@@ -799,9 +906,9 @@
 
             Dim cs = ""
             If args.IndexOfAny({","c, " "c}) > -1 Then
-                cs = $"({args}) => {_return}"
+                cs = $"({args}) ={GreaterThan} {_return}"
             Else
-                cs = $"{args} => {_return}"
+                cs = $"{args} ={GreaterThan} {_return}"
             End If
 
             lambda.ReplaceWith(AddToCsList(cs))

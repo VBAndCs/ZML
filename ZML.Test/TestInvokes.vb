@@ -24,7 +24,7 @@ Imports ZML
         Dim z = $"@Foo<int>(3, 'a', {Qt}Ali{Qt}, m => m.Name, (int n) => n + 1, (int x, int y) => x + y, (double a, float b) => a + b)"
         Assert.AreEqual(y, z)
 
-            x = <zml xmlns:z="zml">
+        x = <zml xmlns:z="zml">
                     <z:invoke method="RenderSection">
                         <z:arg>Scripts</z:arg>
                         <z:arg name="required">false</z:arg>
@@ -115,4 +115,43 @@ await Foo2(false, 'Ali'))".Replace((SnglQt, Qt), (vbCrLf, ""))
             Assert.AreEqual(y, z)
         End Sub
 
-    End Class
+    <TestMethod>
+    Sub TestRawLambdas()
+
+        Dim x = <zml xmlns:z="zml">
+                    <z:invoke method="Foo">
+                        <z:arg>Fn(m) => m.Name</z:arg>
+                        <z:arg>Fn(n as integer)=> n+1</z:arg>
+                        <z:arg>fn(x, y)=>x+y</z:arg>
+                        <z:arg>fn(a as string, b as string) =>a + b</z:arg>
+                        <z:arg>fn(x, y)=>myfn(x, Fn(t) => t + y)</z:arg>
+                    </z:invoke>
+                </zml>
+
+        Dim y = x.ParseZml()
+        Dim z = $"@Foo(m => m.Name, (int n) => n+1, (x, y) => x+y, (string a, string b) => a + b, (x, y) => myfn(x, t => t + y))"
+        Assert.AreEqual(y, z)
+
+        Dim s = <zml xmlns:z="zml">
+                @Foo(Fn(m as List(Of integer, Dictionary(of String, Single))) => m.ToString())
+                <p>Foo(Fn(n as integer)=> n+1)</p>
+                    <z:if condition='foo(fn(x, y)=>x+y, 10)'>
+                    </z:if>
+                    <z:invoke method='Foo(3, fn(a As String, b As String) =>a + b)'/>
+                    <z:declare f='@fn(x, y)=>myfn(x, Fn(t) => t + y)'/>
+                </zml>
+
+        y = s.ParseZml()
+        z =
+"@Foo((List<int, Dictionary<string, float>> m) => m.ToString())
+<p>Foo((int n) => n+1)</p>
+@if (foo((x, y) => x+y, 10))
+{
+}
+@Foo(3, (string a, string b) => a + b)()
+@{ var f = (x, y) => myfn(x, t => t + y); }"
+        Assert.AreEqual(y, z)
+    End Sub
+
+
+End Class
