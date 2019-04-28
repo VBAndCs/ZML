@@ -18,9 +18,7 @@
                 <div class="checkbox">
                     <label asp-for="RememberMachine">
                         <input asp-for="RememberMachine" />
-                        <z:invoke method="Html.DisplayNameFor">
-                            <z:lambda m return="m.RememberMachine" />
-                        </z:invoke>
+                        @Html.DisplayNameFor( Fn(m) => m.RememberMachine)
                     </label>
                 </div>
             </div>

@@ -1,3 +1,10 @@
+@* <!-- This cshtml file is auto-generated from the MyOrders.zml file. 
+You must not do any changes here, because it can be overwritten 
+when the MyOrders.zml file changes.
+Make all the changes you need to the MyOrders.zml file.
+But even this is an auto-generated, DONT DELETE this file 
+from the soluton explorer, becuase there is a cshtml.vb file attached to, 
+and will also be deleted with all the code you wrote in it!  --> *@
 @model IEnumerable<OrderViewModel>
 @{ ViewData["Title"] = "My Order History"; }
 <div class="esh-orders">
@@ -24,7 +31,8 @@
             @Html.DisplayFor(modelItem => item.OrderDate)
           </section>
           <section class="esh-orders-item col-xs-2">
-                           $ @Html.DisplayFor(modelItem => item.Total)</section>
+                           $ @Html.DisplayFor(modelItem => item.Total)
+          </section>
           <section class="esh-orders-item col-xs-2">
             @Html.DisplayFor(modelItem => item.Status)
           </section>

@@ -1,3 +1,10 @@
+@* <!-- This cshtml file is auto-generated from the Disable2fa.zml file. 
+You must not do any changes here, because it can be overwritten 
+when the Disable2fa.zml file changes.
+Make all the changes you need to the Disable2fa.zml file.
+But even this is an auto-generated, DONT DELETE this file 
+from the soluton explorer, becuase there is a cshtml.vb file attached to, 
+and will also be deleted with all the code you wrote in it!  --> *@
 @{ ViewData["Title"] = "Disable two-factor authentication (2FA)"; }
 @{
 ViewData[ManageNavPages.ActivePageKey] = ManageNavPages.TwoFactorAuthentication;
@@ -15,7 +22,8 @@ ViewData[ManageNavPages.ActivePageKey] = ManageNavPages.TwoFactorAuthentication;
       used in an authenticator app you should <a asp-action="ResetAuthenticatorWarning">
           reset your
           authenticator keys.
-      </a></p>
+      </a>
+  </p>
 </div>
 <div>
   <form asp-action="Disable2fa" method="post" class="form-group">

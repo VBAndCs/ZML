@@ -4803,7 +4803,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "ZML.1.0/1.0.0": {
+      "ZML.1.0/1.1.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/ZML.dll": {}
@@ -13154,17 +13154,17 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "ZML.1.0/1.0.0": {
-      "sha512": "YxQPmMxhMWDI9GZkiCfVGqbnDutSKFnuFt1PdpIfvTeXVQtSUVr09T6o2wES5cYpW8/5xCr9VV5uD9s9qCirYg==",
+    "ZML.1.0/1.1.2": {
+      "sha512": "7Hzs9BkuNkabwxGl9isSl+xJH1g9AVIqKmouxE1A81fz2i8Rk4g5dbwFiIqfyG2EkiMiSZbh/do2Lpd3yziG/g==",
       "type": "package",
-      "path": "zml.1.0/1.0.0",
+      "path": "zml.1.0/1.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/ZML.deps.json",
         "lib/netstandard2.0/ZML.dll",
         "lib/netstandard2.0/ZML.pdb",
-        "zml.1.0.1.0.0.nupkg.sha512",
+        "zml.1.0.1.1.2.nupkg.sha512",
         "zml.1.0.nuspec"
       ]
     },
@@ -13191,7 +13191,7 @@
       "Microsoft.NETCore.Targets >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.2.3",
       "Swashbuckle.AspNetCore >= 4.0.1",
-      "ZML.1.0 >= 1.0.0"
+      "ZML.1.0 >= 1.1.2"
     ]
   },
   "packageFolders": {
@@ -13281,7 +13281,7 @@
           },
           "ZML.1.0": {
             "target": "Package",
-            "version": "[1.0.0, )"
+            "version": "[1.1.2, )"
           }
         },
         "imports": [

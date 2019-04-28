@@ -1,3 +1,10 @@
+@* <!-- This cshtml file is auto-generated from the LoginWith2fa.zml file. 
+You must not do any changes here, because it can be overwritten 
+when the LoginWith2fa.zml file changes.
+Make all the changes you need to the LoginWith2fa.zml file.
+But even this is an auto-generated, DONT DELETE this file 
+from the soluton explorer, becuase there is a cshtml.vb file attached to, 
+and will also be deleted with all the code you wrote in it!  --> *@
 @model LoginWith2faViewModel
 @{ ViewData["Title"] = "Two-factor authentication"; }
 <h2>
@@ -19,8 +26,8 @@
         <div class="checkbox">
           <label asp-for="@Model.RememberMachine">
             <input asp-for="@Model.RememberMachine" />
-            @Html.DisplayNameFor(m =>)
-          </label>
+                      @Html.DisplayNameFor( m => m.RememberMachine)
+                  </label>
         </div>
       </div>
       <div class="form-group">

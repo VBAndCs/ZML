@@ -1,5 +1,5 @@
 ﻿<z:page/>
-<z:model type="ErrorModel"/>"
+<z:model type="ErrorModel"/>
 <z:title>Error</z:title>
 
 <h1 class="text-danger">Error</h1>

@@ -19,19 +19,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Ardalis.ListStartupServices" Version="1.1.3" />
-
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
-
     <PackageReference Include="Microsoft.NETCore.Targets" Version="2.1.0" />
-
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-
-    <PackageReference Include="ZML.1.0" Version="1.0.0" />
-
+    <PackageReference Include="ZML.1.0" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
