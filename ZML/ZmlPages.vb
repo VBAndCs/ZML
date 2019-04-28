@@ -36,11 +36,11 @@
         Dim zml = ""
         If encoding Is Nothing Then
             zml = IO.File.OpenText(zmlFile).ReadToEnd()
-            IO.File.WriteAllText(cshtmlFile, ParseZml(zml))
+            IO.File.WriteAllText(cshtmlFile, ParseZml(zml, IO.Path.GetFileName(zmlFile)))
         Else
             zml = New IO.StreamReader(zmlFile, encoding).ReadToEnd()
             Dim sw As New IO.StreamWriter(cshtmlFile, False, encoding)
-            sw.Write(zml)
+            sw.Write(ParseZml(zml, IO.Path.GetFileName(zmlFile)))
         End If
 
     End Sub

@@ -1,284 +1,5 @@
 ﻿Partial Public Class Zml
 
-    Function ParseZml(zml As XElement) As String
-
-        BlockStart = AddToCsList("{")
-        BlockEnd = AddToCsList("}")
-
-        ' <z:displayfor var="modelItem" return="item.OrderDate" />
-
-        Xml = New XElement(zml)
-        PreserveLines(Xml)
-        FixSelfClosing()
-        ParseImports()
-        ParseHelperImports()
-        ParseLayout()
-        ParsePage()
-        ParseInjects()
-        ParseModel()
-        ParseTitle()
-        ParseText()
-        FixTagHelpers()
-        FixAttrExpressions()
-        ParseChecks()
-        ParseIfStatements()
-        ParseForEachLoops()
-        ParseForLoops()
-        ParseWhileLoops()
-        ParseBreaks()
-        ParseComments()
-        ParseViewData()
-        ParseHtmlHelpers()
-        ParseDots()
-        ParseLambdas()
-        ParseInvokes()
-        ParseGetters()
-        ParseSetters()
-        ParseSections()
-        ParseDeclarations()
-
-        Dim x = Xml.ToString()
-        For n = CsCode.Count - 1 To 0 Step -1
-            x = x.Replace($"<zmlitem{n} />", CsCode(n))
-        Next
-
-        x = x.Replace(
-                   (LessThan, "<"), (GreaterThan, ">"),
-                   (Ampersand, "&"), (tempText, ""), (AtSymbole, "@"),
-                   (Qt + ChngQt, SnglQt),
-                   (ChngQt + Qt, SnglQt),
-                   (tempComma, ","),
-                   (ChngQt, ""), (SnglQt + SnglQt, Qt),
-                   (doctypeTag, doctypeStr)
-                 ).Trim(" ", vbCr, vbLf)
-
-        Dim lines = x.Split({vbCr, vbLf}, StringSplitOptions.RemoveEmptyEntries)
-        Dim sb As New Text.StringBuilder()
-
-        Dim offset = 0
-
-        For Each line In lines
-            Dim absLine = line.Trim()
-            If absLine = TempRoot Or absLine = TempTagStart Then
-                offset += 2
-            ElseIf absLine = TempTagEnd Then
-                offset -= 2
-            ElseIf absLine <> "" AndAlso absLine <> TempBodyStart AndAlso absLine <> TempBodyEnd AndAlso absLine <> TempBody Then
-                line = line.Replace((TempBodyStart, ""), (TempBodyEnd, ""))
-                If line.Length > offset AndAlso line.StartsWith(New String(" ", offset)) Then
-                    sb.AppendLine(line.Substring(offset))
-                Else
-                    sb.AppendLine(line)
-                End If
-            End If
-        Next
-        Return sb.ToString().
-            Replace(
-            (TempTagStart, ""), (TempTagEnd, ""),
-            (TempBody, "")).Trim(" ", vbCr, vbLf)
-    End Function
-
-    Private Sub PreserveLines(x As XElement)
-        If x Is Nothing Then Return
-        If x.Nodes.Count = 1 AndAlso TypeOf x.Nodes(0) Is XText Then
-            If x.Name.LocalName <> "zml" Then
-                Dim n = x.Nodes(0).ToString()
-                If ContainsLambda(n) Then
-                    x.Nodes(0).ReplaceWith(ParseRawLmbda(n))
-                End If
-            End If
-            Return
-        End If
-
-        For Each node In x.Nodes
-            If TypeOf node Is XText Then
-                Dim s = TempTagStart + ParseRawLmbda(node.ToString().Trim(" "c, CChar(vbCr), CChar(vbLf))) + TempTagEnd
-                node.ReplaceWith(XElement.Parse(s))
-                ' Loop is broken. Reapeat from start
-                PreserveLines(x)
-                Exit For
-            ElseIf TypeOf node Is XElement Then
-                PreserveLines(node)
-            End If
-        Next
-    End Sub
-
-    Private Sub FixSelfClosing()
-        Dim tagNamess = {"span", "label"}
-        Dim tags = (From elm In Xml.Descendants()
-                    Where tagNamess.Contains(elm.Name.ToString()))
-
-        ' add a temp node to ensure using a closing tag
-        For Each tag In tags
-            If tag.Nodes.Count = 0 Then
-                tag.Add(tempText)
-            End If
-        Next
-    End Sub
-
-    Private Sub FixTagHelpers()
-        Dim tageHelpers = From elm In Xml.Descendants()
-                          From attr In elm.Attributes
-                          Let name = attr.Name.ToString()
-                          Where name = aspItems Or name = aspFor
-                          Select attr
-
-        For Each tageHelper In tageHelpers
-            Dim value = tageHelper.Value
-            If Not (value.StartsWith("@") Or value.StartsWith(AtSymbole)) Then
-                If value.StartsWith(ModelKeyword) Then
-                    tageHelper.Value = "@" + value
-                Else
-                    tageHelper.Value = atModel + "." + value
-                End If
-            End If
-        Next
-
-    End Sub
-
-    Sub FixAttrExpressions()
-        Dim attrs = From elm In Xml.Descendants()
-                    From attr In elm.Attributes
-                    Select attr
-
-        For Each attr In attrs
-            Dim value = attr.Value
-            If value.Contains(SnglQt & SnglQt) Then
-                attr.Value = ChngQt & value & ChngQt
-            End If
-            If ContainsLambda(value) Then
-                attr.Value = ParseRawLmbda(attr.Value)
-            End If
-        Next
-
-    End Sub
-
-    Private Function ContainsLambda(x As String) As Boolean
-        Return x.Contains("=>") OrElse
-            x.Contains("=&gt;") OrElse
-            x.Contains("=" & GreaterThan)
-    End Function
-
-    Private Sub ParseTitle()
-        Dim viewTitle = (From elm In Xml.Descendants()
-                         Where elm.Name = viewtitleTag)?.FirstOrDefault
-
-        If viewTitle IsNot Nothing Then
-            Dim cs = ""
-            Dim value = If(viewTitle.Attribute(valueAttr)?.Value, viewTitle.Value)
-            If value = "" Then 'Read Title
-                cs = $"@ViewData[{Qt }Title{Qt }]"
-            Else ' Set Title
-                cs = "@{ " & $"ViewData[{Qt}Title{Qt}] = {Quote(value)};" & " }"
-            End If
-
-            viewTitle.ReplaceWith(AddToCsList(cs, viewTitle))
-
-            ParseTitle()
-        End If
-
-    End Sub
-
-    Private Sub ParseText()
-        Dim text = (From elm In Xml.Descendants()
-                    Where elm.Name = textTag)?.FirstOrDefault
-
-        If text IsNot Nothing Then
-
-            Dim value = If(text.Attribute(valueAttr)?.Value, text.Value)
-            text.ReplaceWith(AddToCsList("@: " + value))
-
-            ParseText()
-        End If
-
-    End Sub
-
-
-    Private Sub ParseComments()
-        Dim comment = (From elm In Xml.Descendants()
-                       Where elm.Name = commentTag).FirstOrDefault
-
-        If comment IsNot Nothing Then
-            Dim x = CombineXml(
-                      AddToCsList("@*"),
-                      comment.InnerXml,
-                     AddToCsList("*@"))
-
-            comment.ReplaceWith(x)
-            ParseComments()
-        End If
-    End Sub
-
-    Private Sub ParseSetters()
-
-        Dim setter = (From elm In Xml.Descendants()
-                      Where elm.Name = setTag).FirstOrDefault
-
-        If setter IsNot Nothing Then
-            Dim cs As XElement
-            Dim obj = setter.Attribute(objectAttr)
-            If obj Is Nothing Then
-                ' Set multiple values
-
-                If setter.Attributes.Count = 1 Then
-                    Dim o = setter.Attributes()(0)
-                    cs = AddToCsList("@{ " & $"{At(o.Name.ToString())} = {Quote(o.Value)};" & " }", setter)
-                Else
-                    Dim settings = <zmlbody/>
-                    For Each o In setter.Attributes
-                        settings.Add(AddToCsList($"{At(o.Name.ToString())} = {Quote(o.Value)};"))
-                    Next
-                    cs = CombineXml(
-                            AddToCsList("@{", setter),
-                                 settings,
-                            AddToCsList("}", setter))
-                End If
-            Else ' Set single value 
-                Dim key = setter.Attribute(keyAttr)
-
-                Dim value = ""
-                If setter.Nodes.Count > 0 AndAlso TypeOf setter.Nodes(0) Is XElement Then
-                    value = ParseNestedInvoke(setter.Nodes(0))
-                Else
-                    value = Quote(If(setter.Attribute(valueAttr)?.Value, setter.Value))
-                End If
-
-                If key Is Nothing Then
-                    ' Set single value without key
-                    cs = AddToCsList("@{ " + $"{At(obj.Value)} = {value};" + " }", setter)
-
-                Else ' Set single value with key
-                    cs = AddToCsList("@{ " + $"{At(obj.Value)}[{Quote(key.Value)}] = {value};" + " }", setter)
-                End If
-            End If
-
-            setter.ReplaceWith(cs)
-            ParseSetters()
-        End If
-
-    End Sub
-    Private Sub ParseHtmlHelpers()
-        ParseHtmlHelper(displayforTag, "DisplayFor")
-        ParseHtmlHelper(displaynameforTag, "DisplayNameFor")
-    End Sub
-
-    Sub ParseHtmlHelper(tag As String, methodName As String)
-        Dim helper = (From elm In Xml.Descendants()
-                      Where elm.Name = tag).FirstOrDefault
-
-        If helper IsNot Nothing Then
-            Dim var = At(helper.Attribute(varAttr).Value)
-            Dim _return = ""
-            If helper.Nodes.Count > 0 AndAlso TypeOf helper.Nodes(0) Is XElement Then
-                _return = ParseNestedInvoke(helper.Nodes(0))
-            Else
-                _return = At(If(helper.Attribute(returnAttr)?.Value, helper.Value))
-            End If
-            Dim cs = $"@Html.{methodName}({var} ={GreaterThan} {_return})"
-            helper.ReplaceWith(AddToCsList(cs, helper))
-            ParseHtmlHelper(tag, methodName)
-        End If
-    End Sub
 
     Private Sub ParseDeclarations()
 
@@ -330,6 +51,56 @@
 
     End Sub
 
+    Private Sub ParseSetters()
+
+        Dim setter = (From elm In Xml.Descendants()
+                      Where elm.Name = setTag).FirstOrDefault
+
+        If setter IsNot Nothing Then
+            Dim cs As XElement
+            Dim obj = setter.Attribute(objectAttr)
+            If obj Is Nothing Then
+                ' Set multiple values
+
+                If setter.Attributes.Count = 1 Then
+                    Dim o = setter.Attributes()(0)
+                    cs = AddToCsList("@{ " & $"{At(o.Name.ToString())} = {Quote(o.Value)};" & " }", setter)
+                Else
+                    Dim settings = <zmlbody/>
+                    For Each o In setter.Attributes
+                        settings.Add(AddToCsList($"{At(o.Name.ToString())} = {Quote(o.Value)};"))
+                    Next
+                    cs = CombineXml(
+                            AddToCsList("@{", setter),
+                                 settings,
+                            AddToCsList("}", setter))
+                End If
+            Else ' Set single value 
+                Dim key = setter.Attribute(keyAttr)
+
+                Dim value = ""
+                If setter.Nodes.Count > 0 AndAlso TypeOf setter.Nodes(0) Is XElement Then
+                    value = ParseNestedInvoke(setter.Nodes(0))
+                Else
+                    value = Quote(If(setter.Attribute(valueAttr)?.Value, setter.Value))
+                End If
+
+                If key Is Nothing Then
+                    ' Set single value without key
+                    cs = AddToCsList("@{ " + $"{At(obj.Value)} = {value};" + " }", setter)
+
+                Else ' Set single value with key
+                    cs = AddToCsList("@{ " + $"{At(obj.Value)}[{Quote(key.Value)}] = {value};" + " }", setter)
+                End If
+            End If
+
+            setter.ReplaceWith(cs)
+            ParseSetters()
+        End If
+
+    End Sub
+
+
     Private Sub ParseGetters()
 
         Dim getter = (From elm In Xml.Descendants()
@@ -353,134 +124,6 @@
 
     End Sub
 
-    Private Sub ParseViewData()
-        Dim viewdata = (From elm In Xml.Descendants()
-                        Where elm.Name = viewdataTag)?.FirstOrDefault
-
-        If viewdata IsNot Nothing Then
-            Dim _keyAttr = viewdata.Attribute(keyAttr)
-            Dim value = If(viewdata.Attribute(valueAttr)?.Value, viewdata.Value)
-
-            If _keyAttr Is Nothing Then
-                ' Write miltiple values to ViewData
-
-                Dim sb As New Text.StringBuilder(Ln + "@{" + Ln)
-                For Each key In viewdata.Attributes
-                    sb.AppendLine($"ViewData[{Quote(key.Name.ToString())}] = {Quote(key.Value)};")
-                Next
-                sb.AppendLine("}" + Ln)
-
-                viewdata.ReplaceWith(AddToCsList(sb.ToString(), viewdata))
-
-            ElseIf value IsNot Nothing Then
-                ' Write one value to ViewData
-
-                Dim cs = $"ViewData[{Quote(_keyAttr.Value)}] = {Quote(value)};"
-                viewdata.ReplaceWith(AddToCsList(cs, viewdata))
-
-            Else ' Read from ViewData
-                Dim cs = $"@ViewData[{Quote(_keyAttr.Value)}]"
-                viewdata.ReplaceWith(AddToCsList(cs, viewdata))
-            End If
-
-            ParseViewData()
-        End If
-
-    End Sub
-
-    Private Sub ParseImports()
-        Dim tag = (From elm In Xml.Descendants()
-                   Where elm.Name = importsTag OrElse
-                            elm.Name = usingTag OrElse
-                            elm.Name = namespaceTag)?.FirstOrDefault
-
-        If tag IsNot Nothing Then
-            Dim ns = If(tag.Attribute(nsAttr)?.Value, tag.Value)
-            Dim _using = ""
-            Dim x = ""
-
-            If tag.Name.ToString = namespaceTag Then
-                _using = AtNamespace & " "
-            Else
-                _using = AtUsing & " "
-            End If
-
-            If ns = "" Then
-                Dim sb As New Text.StringBuilder
-                For Each attr In tag.Attributes
-                    sb.AppendLine(_using + attr.Name.ToString())
-                Next
-                x = sb.ToString()
-            Else
-                x = _using + ns
-            End If
-
-            tag.ReplaceWith(AddToCsList(x))
-            ParseImports()
-        End If
-    End Sub
-
-    Private Sub ParseHelperImports()
-        Dim helper = (From elm In Xml.Descendants()
-                      Where elm.Name = helpersTag)?.FirstOrDefault
-
-        If helper IsNot Nothing Then
-            Dim ns = If(helper.Attribute(nsAttr)?.Value, helper.Value)
-            Dim x = ""
-            If ns = "" Then
-                Dim sb As New Text.StringBuilder
-                For Each attr In helper.Attributes
-                    sb.AppendLine($"@addTagHelper {attr.Value}, {attr.Name}")
-                Next
-                x = sb.ToString()
-            Else
-                Dim add = If(helper.Attribute(addAttr)?.Value, "*")
-                x = $"@addTagHelper {add}, {ns}"
-            End If
-
-            helper.ReplaceWith(AddToCsList(x))
-            ParseHelperImports()
-        End If
-    End Sub
-
-    Private Sub ParsePage()
-        Dim page = (From elm In Xml.Descendants()
-                    Where elm.Name = pageTag)?.FirstOrDefault
-
-        If page IsNot Nothing Then
-            Dim route = If(page.Attribute(routeAttr)?.Value, page.Value)
-            Dim x = AtPage & " "
-            If route <> "" Then x += Qt + route + Qt
-
-            page.ReplaceWith(AddToCsList(x))
-            ParsePage()
-        End If
-    End Sub
-
-    Private Sub ParseLayout()
-        Dim layout = (From elm In Xml.Descendants()
-                      Where elm.Name = layoutTag)?.FirstOrDefault
-
-        If layout IsNot Nothing Then
-            Dim page = If(layout.Attribute(pageAttr)?.Value, layout.Value)
-            Dim x = "@{" + Ln + $"      Layout = {Qt}{page}{Qt};" + Ln + "}"
-
-            layout.ReplaceWith(AddToCsList(x))
-        End If
-    End Sub
-
-
-    Private Sub ParseModel()
-        Dim model = (From elm In Xml.Descendants()
-                     Where elm.Name = modelTag)?.FirstOrDefault
-
-        If model IsNot Nothing Then
-            Dim type = If(model.Attribute(typeAttr)?.Value, model.Value)
-            Dim x = "@model " + convVars(type)
-
-            model.ReplaceWith(AddToCsList(x))
-        End If
-    End Sub
 
     Private Sub ParseForLoops()
         Dim _for = (From elm In Xml.Descendants()
@@ -553,28 +196,11 @@
 
             Dim cs = $"@for ({typeName} {varName} = {Quote(var.Value)}; {cond}; {inc})"
 
-            Dim x = AddLable(GetCsHtml(cs, _for), label?.Value)
+            Dim x = AddLoopLables(GetCsHtml(cs, _for), label?.Value)
             _for.ReplaceWith(x)
             ParseForLoops()
         End If
     End Sub
-
-    Private Function AddLable(x As XElement, label As String) As XElement
-        If label <> "" Then
-
-            Dim body As XElement = (From n In x.Nodes
-                                    Where TryCast(n, XElement)?.Name.ToString() = "zmlbody").First
-
-            body.Add(AddToCsList("continue_" & label & ":"))
-
-            Dim be = BlockEnd.Name.ToString()
-            Dim BlkEnd As XElement = (From n In x.Nodes()
-                                      Where TryCast(n, XElement)?.Name.ToString() = be).First
-
-            BlkEnd.AddAfterSelf(AddToCsList("break_" & label & ":"))
-        End If
-        Return x
-    End Function
 
     Private Sub ParseForEachLoops()
         Dim foreach = (From elm In Xml.Descendants()
@@ -592,7 +218,7 @@
             End If
 
             Dim cs = $"@foreach ({type} {_var} in {_in})"
-            Dim x = AddLable(GetCsHtml(cs, foreach), label)
+            Dim x = AddLoopLables(GetCsHtml(cs, foreach), label)
             foreach.ReplaceWith(x)
 
             ParseForEachLoops()
@@ -608,7 +234,7 @@
             Dim label = _while.Attribute(labelAttr)?.Value
 
             Dim cs = $"@while ({cond})"
-            Dim x = AddLable(GetCsHtml(cs, _while), label)
+            Dim x = AddLoopLables(GetCsHtml(cs, _while), label)
             _while.ReplaceWith(x)
 
             ParseForEachLoops()
@@ -913,47 +539,17 @@
         End If
     End Sub
 
-    Private Sub ParseInjects()
-        Dim inject = (From elm In Xml.Descendants()
-                      Where elm.Name = injectTag)?.FirstOrDefault
-
-        If inject IsNot Nothing Then
-            Dim sb As New Text.StringBuilder()
-            For Each arg In inject.Attributes
-                Dim name = arg.Name.ToString()
-                Dim type = convVars(arg.Value)
-                If name.EndsWith("." & typeAttr) Then name = name.Substring(0, name.Length - 5)
-                sb.AppendLine($"@inject {type} {name}")
-            Next
-
-            inject.ReplaceWith(AddToCsList(sb.ToString()))
-            ParseInjects()
-        End If
-    End Sub
 
     Function ParseNestedInvoke(x As XElement) As String
         Dim CsBlock() As Char = {"@"c, "{"c, "}"c, ";", " "c, CChar(vbCr), CChar(vbLf)}
         Dim z = <zml/>
         z.Add(x)
-        Dim result = New Zml().ParseZml(z).Trim(CsBlock)
+        Dim result = New Zml().CompileZml(z).Trim(CsBlock)
         If result.StartsWith("<zmlitem") Then
             Dim n = CInt(result.Substring(8, result.Length - 11))
             CsCode(n) = CsCode(n).Trim(CsBlock)
         End If
         Return result
     End Function
-
-    Private Sub ParseSections()
-        Dim section = (From elm In Xml.Descendants()
-                       Where elm.Name = sectionTag)?.FirstOrDefault
-
-        If section IsNot Nothing Then
-            Dim name = At(section.Attribute(nameAttr).Value)
-            Dim cs = $"@section {name}"
-            section.ReplaceWith(GetCsHtml(cs, section, False, True))
-
-            ParseSections()
-        End If
-    End Sub
 
 End Class

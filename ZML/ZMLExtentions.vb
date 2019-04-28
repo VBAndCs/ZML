@@ -72,12 +72,12 @@ Public Module ZMLExtentions
     End Function
 
     <Extension>
-    Function ParseZml(zml As XElement, Optional addComment As Boolean = False) As String
-        Return New Zml().ParseZml(zml)
+    Function ParseZml(zml As XElement, Optional zmlFile As String = "") As String
+        Return New Zml(zmlFile).CompileZml(zml)
     End Function
 
     <Extension>
-    Public Function ParseZml(zml As String) As String
-        Return ToXml(zml).ParseZml(True)
+    Public Function ParseZml(zml As String, Optional zmlFile As String = "") As String
+        Return ToXml(zml).ParseZml(zmlFile)
     End Function
 End Module
