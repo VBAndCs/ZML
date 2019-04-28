@@ -783,11 +783,7 @@
                                         sbArgs.Append(ParseNestedInvoke(arg.Nodes(0)))
                                     Else
                                         Dim exp = If(arg.Value, arg.Attribute(valueAttr).Value)
-                                        If ContainsLambda(exp) Then
-                                            sbArgs.Append(ParseRawLmbda(exp))
-                                        Else
-                                            sbArgs.Append(Quote(exp))
-                                        End If
+                                        sbArgs.Append(Quote(exp))
                                     End If
                                     sbArgs.Append(", ")
                                 Case Else
@@ -814,13 +810,14 @@
     End Sub
 
     Private Function ParseRawLmbda(exp As String) As String
+        If exp.StartsWith(ChngQt) Then Return exp
         Dim pos = 0
         Do
             pos = Math.Max(
                         exp.IndexOf("fn(", pos, StringComparison.InvariantCultureIgnoreCase),
                         exp.IndexOf("fn (", pos, StringComparison.InvariantCultureIgnoreCase))
 
-            If pos = -1 Then Return exp
+            If pos = -1 Then Return exp.Replace(("=&gt;", "=" & GreaterThan), ("=>", "=" & GreaterThan))
             If pos = 0 Then Exit Do
             Select Case exp.Substring(pos - 1, 1)
                 Case "a" To "z", "A" To "Z", "_"
@@ -852,17 +849,17 @@
         Dim params = header.Substring(1, header.Length - 2).Split(","c)
         Dim paramList As New Text.StringBuilder()
         For Each param In params
-                Dim p = param.Split({" as ", " As "}, StringSplitOptions.RemoveEmptyEntries)
-                If p.Length = 1 Then
-                    paramList.Append(p(0).Trim())
-                Else
-                    paramList.Append(convVars(p(1).Trim()))
-                    paramList.Append(" ")
-                    paramList.Append(convVars(p(0).Trim()))
-                End If
-                paramList.Append(", ")
-            Next
-            If paramList.Length > 0 Then paramList.Remove(paramList.Length - 2, 2)
+            Dim p = param.Split({" as ", " As "}, StringSplitOptions.RemoveEmptyEntries)
+            If p.Length = 1 Then
+                paramList.Append(p(0).Trim())
+            Else
+                paramList.Append(convVars(p(1).Trim()))
+                paramList.Append(" ")
+                paramList.Append(convVars(p(0).Trim()))
+            End If
+            paramList.Append(", ")
+        Next
+        If paramList.Length > 0 Then paramList.Remove(paramList.Length - 2, 2)
 
         If ContainsLambda(Body) Then Body = ParseRawLmbda(Body)
 

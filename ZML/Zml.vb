@@ -113,13 +113,15 @@ Public Class Zml
         ElseIf value.StartsWith("@") Then ' This is for test app
             Return value.Substring(1) ' value is object 
         ElseIf value.StartsWith(SnglQt) AndAlso value.EndsWith(SnglQt) Then
-                Return value ' value is char
+            Return value ' value is char
         ElseIf value.StartsWith("#") AndAlso value.EndsWith("#") Then
             Return $"DateTime.Parse({Qt}{value.Trim("#")}{Qt}, new System.Globalization.CultureInfo({Qt}en-US{Qt}))"
         ElseIf value = trueKeyword OrElse value = falseKeyword Then
             Return value ' value is boolean  
         ElseIf Double.TryParse(value, New Double()) Then
-            Return value ' value is numeric       
+            Return value ' value is numeric
+        ElseIf ContainsLambda(value) Then
+            Return value ' value is lambda expr.
         Else
             Return Qt + value.Trim(Qt) + Qt ' value is string
         End If

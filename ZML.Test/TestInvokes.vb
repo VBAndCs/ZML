@@ -138,7 +138,10 @@ await Foo2(false, 'Ali'))".Replace((SnglQt, Qt), (vbCrLf, ""))
                     <z:if condition='foo(fn(x, y)=>x+y, 10)'>
                     </z:if>
                     <z:invoke method='Foo(3, fn(a As String, b As String) =>a + b)'/>
-                    <z:declare f='@fn(x, y)=>myfn(x, Fn(t) => t + y)'/>
+                    <z:declare f="fn(x, y)=>myfn(x, Fn(t) => t + y)"/>
+                    <div>@{ f2= x => x.Name; }</div>
+                    <z:declare f3="''Fn(int x) => x.Name''"/>
+                    <code>@{ f3= Fn(int x, int y) => x + y; }</code>
                 </zml>
 
         y = s.ParseZml()
@@ -149,7 +152,10 @@ await Foo2(false, 'Ali'))".Replace((SnglQt, Qt), (vbCrLf, ""))
 {
 }
 @Foo(3, (string a, string b) => a + b)()
-@{ var f = (x, y) => myfn(x, t => t + y); }"
+@{ var f = (x, y) => myfn(x, t => t + y); }
+<div>@{ f2= x => x.Name; }</div>
+@{ var f3 = 'Fn(int x) => x.Name'; }
+<code>@{ f3= (int x, int y) => x + y; }</code>".Replace(SnglQt, Qt)
         Assert.AreEqual(y, z)
     End Sub
 
