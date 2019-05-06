@@ -5,8 +5,8 @@ Imports ZML
 <TestClass>
     Public Class TestInvokes
 
-        <TestMethod>
-        Sub TestInvokes()
+    <TestMethod>
+    Sub TestInvokes()
         Dim x = <zml xmlns:z="zml">
                     <z:invoke method="Foo">
                         <z:typeparam>Integer</z:typeparam>
@@ -25,15 +25,15 @@ Imports ZML
         Assert.AreEqual(y, z)
 
         x = <zml xmlns:z="zml">
-                    <z:invoke method="RenderSection">
-                        <z:arg>Scripts</z:arg>
-                        <z:arg name="required">false</z:arg>
-                    </z:invoke>
-                </zml>
+                <z:invoke method="RenderSection">
+                    <z:arg>Scripts</z:arg>
+                    <z:arg name="required">false</z:arg>
+                </z:invoke>
+            </zml>
 
-            y = x.ParseZml()
-            z = "@RenderSection('Scripts', required: false)".Replace(SnglQt, Qt)
-            Assert.AreEqual(y, z)
+        y = x.ParseZml()
+        z = "@RenderSection('Scripts', required: false)".Replace(SnglQt, Qt)
+        Assert.AreEqual(y, z)
 
         x = <zml xmlns:z="zml">
                 <z:await method="Foo">
@@ -52,10 +52,9 @@ Imports ZML
         y = x.ParseZml()
         z = "@{ await " & $"Foo<int, uint>(3, 'a', {Qt}Ali{Qt}, m => m.Name, (int n) => n + 1, (int x, int y) => x + y, (double a, float b) => a + b);" & " }"
         Assert.AreEqual(y, z)
+    End Sub
 
-        End Sub
-
-        <TestMethod>
+    <TestMethod>
         Sub TestNestedInvokes()
             Dim x = <zml xmlns:z="zml">
                         <z:invoke method="Foo">
@@ -132,22 +131,28 @@ await Foo2(false, 'Ali'))".Replace((SnglQt, Qt), (vbCrLf, ""))
         Dim z = $"@Foo(m => m.Name, (int n) => n+1, (x, y) => x+y, (string a, string b) => a + b, (x, y) => myfn(x, t => t + y))"
         Assert.AreEqual(y, z)
 
-        Dim s = <zml xmlns:z="zml">
-                @Foo(Fn(m as List(Of integer, Dictionary(of String, Single))) => m.ToString())
-                <p>Foo(Fn(n as integer)=> n+1)</p>
-                    <z:if condition='foo(fn(x, y)=>x+y, 10)'>
-                    </z:if>
-                    <z:invoke method='Foo(3, fn(a As String, b As String) =>a + b)'/>
-                    <z:declare f="fn(x, y)=>myfn(x, Fn(t) => t + y)"/>
-                    <div>@{ f2= x => x.Name; }</div>
-                    <z:declare f3="''Fn(int x) => x.Name''"/>
-                    <code>@{ f3= Fn(int x, int y) => x + y; }</code>
-                </zml>
 
-        y = s.ParseZml()
-        z =
+    End Sub
+
+    <TestMethod>
+    Sub TestRawLambdaRawText()
+        Dim x =
+<zml xmlns:z="zml">
+    @Foo(Fn(m as List(Of integer, Dictionary(of String, Single))) => m.ToString())
+    <p>Foo(Fn(n as integer)=> n+1)</p>
+    <z:if condition='foo(fn(x, y)=>x+y, 10)'>
+    </z:if>
+    <z:invoke method='Foo(3, fn(a As String, b As String) =>a + b)'/>
+    <z:declare f="fn(x, y)=>myfn(x, Fn(t) => t + y)"/>
+    <div>@{ f2= x => x.Name; }</div>
+    <z:declare f3="''Fn(int x) => x.Name''"/>
+    <code>@{ f3= Fn(int x, int y) => x + y; }</code>
+</zml>
+
+        Dim y = x.ParseZml()
+        Dim z =
 "@Foo((List<int, Dictionary<string, float>> m) => m.ToString())
-<p>Foo((int n) => n+1)</p>
+  <p>Foo((int n) => n+1)</p>
 @if (foo((x, y) => x+y, 10))
 {
 }
@@ -159,5 +164,15 @@ await Foo2(false, 'Ali'))".Replace((SnglQt, Qt), (vbCrLf, ""))
         Assert.AreEqual(y, z)
     End Sub
 
+    <TestMethod>
+    Sub TextInvokeLambda()
+        Dim s = "<z:invoke method='Html.DisplayNameFor'>
+                    <z:lambda m return='m.Name'/>
+                </z:invoke>".Replace(SnglQt, Qt)
 
+        Dim y = s.ParseZml()
+        Dim z = "@Html.DisplayNameFor(m => m.Name)"
+        Assert.AreEqual(y, z)
+
+    End Sub
 End Class

@@ -453,7 +453,7 @@
             End Select
         Loop
 
-        Dim lambda = exp.Substring(pos + 2).Trim
+        Dim lambda = exp.Substring(pos + 2)
         Dim prefix = If(pos = 0, "", exp.Substring(0, pos))
 
         Dim L = 2
@@ -470,7 +470,7 @@
         End If
 
         Dim header = convVars(lambda.Substring(0, pos).Trim())
-        Dim Body = lambda.Substring(pos + L).Trim()
+        Dim Body = lambda.Substring(pos + L).TrimStart()
 
         Dim params = header.Substring(1, header.Length - 2).Split(","c)
         Dim paramList As New Text.StringBuilder()

@@ -258,6 +258,22 @@ comment
         Assert.AreEqual(y, z)
     End Sub
 
+
+    <TestMethod>
+    Sub TestPreservLines()
+        Dim x =
+"<p>
+Note that for demo purposes you do not need to register! Use the credentials shown below the <a asp-action='signin'>login screen</a>.
+</p>"
+
+        Dim y = x.ParseZml()
+        Dim z =
+"<p>
+Note that for demo purposes you do not need to register! Use the credentials shown below the <a asp-action='signin'>login screen</a>.
+</p>".Replace((SnglQt, Qt), (Ln, vbLf), (vbLf, Ln))
+
+        Assert.AreEqual(y, z)
+    End Sub
 End Class
 
 

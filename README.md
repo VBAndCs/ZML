@@ -2,7 +2,7 @@
 ZML is a tagged programming language designed to create Razor Views/Pages that do not have to contain any C#, VB.NET or F# code, so the Razor entirely looks like a normal XML file, that is valid to use in any ASP.NET app regardless of the programming language it uses.
 
 # Ver 1.1:
-I added support to use raw lambda expressions directly, instead of using the lambda tags, which yield long zml codes. (This is available on this repo now, but I didn't publish Ver 1.1 of the NuGet yet).
+I added support to use raw lambda expressions directly, instead of using the lambda tags, which yield long zml codes. 
 For C# programmers, there were no problem in using lambdas directly, because the zml code is compiled to C# anyway.
 But VB.NET programmers couldn't use VB lambdas directly, becuase they wouldn't be converted to C# lambdas. Now, they can, but I made an improvement to VB lambda, because I don't like its syntax!
 So, The new syntax for the VB lambda expression `Function(x As Integer) x=1` will be 'Fn(x as Integer) => x+1` in ZML!
@@ -20,9 +20,9 @@ This will generate the text `Use this lambda: Fn(x) => x + 1` in the cshtml file
 ZML tags need editor support to offer auto complete and some syntax check. Until this happens, you should write ZML exactly as expected, otherwise you will get exceptions.
 
 # Install ZML NuGet:
-Use this command line in Pachage Manager
+Use this command line in Pachage Manager:
 ```
-Install-Package ZML.1.0 -Version 1.0.0 
+Install-Package ZML.1.0 -Version 1.1.2
 ```
 
 **How does ZML work**:

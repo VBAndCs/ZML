@@ -48,6 +48,6 @@
 
 <z:section name="Scripts">
     <z:await method="Html.RenderPartialAsync">
-        <z:arg>_ValidationScriptsPartial"</z:arg>
+        <z:arg>_ValidationScriptsPartial</z:arg>
     </z:await>
 </z:section>

@@ -1,4 +1,4 @@
-﻿<z:model type="BasketComponentViewModel"/>"
+﻿<z:model type="BasketComponentViewModel"/>
 <z:title>My Basket</z:title>
 
 <a class="esh-basketstatus "
@@ -7,6 +7,6 @@
         <img src="~/images/cart.png"/>
     </div>
     <div class="esh-basketstatus-badge">
-        @model.ItemsCount
+        @Model.ItemsCount
     </div>
 </a>

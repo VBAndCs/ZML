@@ -1,9 +1,9 @@
 F:\_VS.NET\ZML\ZML\bin\Release\netstandard2.0\ZML.deps.json
 F:\_VS.NET\ZML\ZML\bin\Release\netstandard2.0\ZML.dll
 F:\_VS.NET\ZML\ZML\bin\Release\netstandard2.0\ZML.pdb
-F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.vbprojAssemblyReference.cache
 F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.vbproj.CoreCompileInputs.cache
 F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.AssemblyInfoInputs.cache
 F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.AssemblyInfo.vb
 F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.dll
 F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.pdb
+F:\_VS.NET\ZML\ZML\obj\Release\netstandard2.0\ZML.vbprojAssemblyReference.cache

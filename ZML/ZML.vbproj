@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <RootNamespace>ZML</RootNamespace>
@@ -7,11 +7,12 @@
     <Description>ZML: The XML Razor
 ZML is a tagged programming language designed to create Razor Views/Pages that do not have to contain any C#, VB.NET or F# code, so the Razor entirely looks like a normal XML file, that is valid to use in any ASP.NET app regardless of the programming language it uses.
 For more details:
-https://github.com/VBAndCs/ZML/README.md</Description>
+https://github.com/VBAndCs/ZML/blob/master/README.md</Description>
     <Copyright>Copyright (c) 2019 Mohammad Hamdy Ghanem</Copyright>
     <RepositoryUrl>https://github.com/VBAndCs/ZML</RepositoryUrl>
     <PackageProjectUrl>https://github.com/VBAndCs/ZML</PackageProjectUrl>
     <PackageTags>Razor ASP.NET dotnetcore VB.NET C# F#</PackageTags>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
 </Project>
