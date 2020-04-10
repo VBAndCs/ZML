@@ -1,6 +1,9 @@
 # ZML: The XML Razor
 ZML is a tagged programming language designed to create Razor Views/Pages that do not have to contain any C#, VB.NET or F# code, so the Razor entirely looks like a normal XML file, that is valid to use in any ASP.NET app regardless of the programming language it uses.
 
+# Behind the scenes:
+Read about [Vazor and ZML history](https://github.com/VBAndCs/Vazor/blob/master/A-Vazor-story.md): how the idea was born, and grown until eShopOnWeb.vb was possible.
+
 # Ver 1.1:
 I added support to use raw lambda expressions directly, instead of using the lambda tags, which yield long zml codes. 
 For C# programmers, there were no problem in using lambdas directly, because the zml code is compiled to C# anyway.
