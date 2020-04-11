@@ -76,8 +76,8 @@ c. You can use either VB or C# generic notation. For example the attribute `type
 But on the other hand, you have to use the C# indexer square brackets `[ ]` instead of VB brackets `( )` when you deal with collection items.
 
 # ZML Tags:
-ZML contains the most needed tags to represent basic C# statements, Razor statements and some commonly uses tag helpers. 
-All ZML tags belongs to the `z:` namespace (such as `<z:text>`) to avoid any confliction with HTML tags (such as `<text>`). You don't have to define the `z:` namespace in .zml files, because ZML does that internally, but you have to define it in vbxml code like this:
+ZML contains the most needed tags to represent basic C# statements, Razor statements and some commonly used tag helpers. 
+All ZML tags belongs to the `z:` namespace (such as `<z:text>`) to avoid any conflictions with HTML tags (such as `<text>`). You don't have to define the `z:` namespace in .zml files, because ZML does that internally, but you have to define it in vbxml code like this:
 ```xml
 <zml xmlns:z="zml">
   <!--add your ZML tages inside this block-->
