@@ -7,7 +7,7 @@ Read about [Vazor and ZML history](https://github.com/VBAndCs/Vazor/blob/master/
 # Ver 1.1:
 I added support to use raw lambda expressions directly, instead of using the lambda tags, which yield long zml codes. 
 For C# programmers, there were no problem in using lambdas directly, because the zml code is compiled to C# anyway.
-But VB.NET programmers couldn't use VB lambdas directly, becuase they wouldn't be converted to C# lambdas. Now, they can, but I made an improvement to VB lambda, because I don't like its syntax!
+But VB.NET programmers couldn't use VB lambdas directly, because they wouldn't be converted to C# lambdas. Now, they can, but I made an improvement to VB lambda, because I don't like its syntax!
 So, The new syntax for the VB lambda expression `Function(x As Integer) x=1` will be 'Fn(x as Integer) => x+1` in ZML!
 C# programmers can also use a similar syntax if they like: 'Fn(int x) => x+1`. In fact I hope that both languages use this `Fn( ) =>` syntax. It is more readable than C#'s syntax, and more compact than VB's syntax.
 You can use this new zml lambda anywhere you need it. Ex:
@@ -15,7 +15,7 @@ You can use this new zml lambda anywhere you need it. Ex:
 And here is a zml example of declaring a lambda delegate:
 `<z:declare f="Fn(x) => x + 1"/>`
 This will generate `@{ f = x => x + 1; }` in C#. Don't you agree that `f = Fn(x) => x + 1;` is less confusing?
-Note that if you want to use the `Fn(x) => x + 1` as a string, you should enclose it with double single qutes (' then ' on both ends), like this:
+Note that if you want to use the `Fn(x) => x + 1` as a string, you should enclose it with double single quotes (' then ' on both ends), like this:
 `<z:declare f="''Use this lambda: Fn(x) => x + 1''"/>`
 This will generate the text `Use this lambda: Fn(x) => x + 1` in the cshtml file.
 
@@ -23,22 +23,22 @@ This will generate the text `Use this lambda: Fn(x) => x + 1` in the cshtml file
 ZML tags need editor support to offer auto complete and some syntax check. Until this happens, you should write ZML exactly as expected, otherwise you will get exceptions.
 
 # Install ZML NuGet:
-Use this command line in Pachage Manager:
+Use this command line in Package Manager:
 ```
 Install-Package ZML.1.0 -Version 1.1.2
 ```
 
 **How does ZML work**:
 you can use ZML in two ways:
-1. add .zml files to your project (and choose to open them with the HTML editor), then call the `zml.ZmlPages.Compile()` method in the `Startup.Configure()` method. This will search for all .zml files in your project, and generate the cshtml files from them. This process will only include .zml files that have been modified since last compilation. Using auto generated cshtml files grantees that your app works as a standard Razor app, giving you all control over razor options, including using pre compiled cshtml files.
+1. add .zml files to your project (and choose to open them with the HTML editor), then call the `zml.ZmlPages.Compile()` method in the `Startup.Configure()` method. This will search for all .zml files in your project, and generate the cshtml files from them. This process will only include .zml files that have been modified since last compilation. Using auto generated cshtml files grantees that your app works as a standard Razor app, giving you all control over razor options, including using pre-compiled cshtml files.
 
 2. You can use zml with a virtual file provider, to deliver the cshtml content to the Razor Engine in runtime, so there will be no cshtml files in the project. To get the compiled CS string, Use the `ParseZML` method, which is an extension method to both String and XElement classes.
-In fact, I first crated ZML to be used within vbxml code in [Vazor project](https://github.com/VBAndCs/Vazor-DotNetCore2) (which uses a virtual file provider), to solve some difficulties in using For Each loops in vbxml in some cases.
+In fact, I first crated ZML to be used within vbxml code in [Vazor project](https://github.com/VBAndCs/Vazor) (which uses a virtual file provider), to solve some difficulties in using For Each loops in vbxml in some cases.
 
 Note that ZML is built on top of Razor engine. This means:
 1. You don't have to worry about future versions of Razor, because ZML will implicitly use them.
 
-2. Your project can contain .zml files beside .cshtml file (other than the auto generated ones), such as cshtml files that do not contain any C# code.
+2. Your project can contain .zml files beside .cshtml files (other than the auto generated ones), such as cshtml files that do not contain any C# code.
 
 3. You can still use C# code inside .zml file. This is useful if you miss a ZML tag to generate that C# code, or if the ZML tag expression is much longer than the C# code!
 
@@ -50,28 +50,28 @@ c. C# razor code!
 # Some Basic ZML Syntax Rules:
 I need to establish some ground rules here before listing ZML tags in the next sections:
  
-1. ZML is an XML not HTML, so, it will not accept any broken HTML structure. Make sure you closed all html tags.
+1. ZML is an XML not HTML, so, it will not accept any broken HTML structure. Make sure you close all html tags.
 
 2. You can use >, < and & symbols directly in ZML code, as it handles them internally. Don't encode these symbols unless you intend to view them in the browser. But note that using these symbols in vbxml literals is not valid, unless you embed the string containing them in ` <%=  %> quotes` to force VB to encode them for you.
 
-3. Always use double quotes `"abc"` around ZML attribute values, and if those values text contain double quotes, use double single quotes to represent them (an ' followed by ') such as `" X=''abc'' "`. ZML will compile this to `' X="abc" '` in the cshtml file. But don't use the last form yourself, because the XML parser will convert the single quotes to double quotes and you will end with `" X="abc" "` which will cause errors if you opened the cshtml file with HTML editor!
+3. Always use double quotes `"abc"` around ZML attribute values, and if those values text contain double quotes, use double single quotes to represent them (' followed by ') such as `" X=''abc'' "`. ZML will compile this to `' X="abc" '` in the cshtml file. But don't use the last form yourself, because the XML parser will convert single quotes to double quotes and you will end with `" X="abc" "` which will cause errors if you opened the cshtml file with HTML editor!
 
-4. Write numerics, chars and booleans directly as attribute values such as `x="3"`, `c="'a'"` and `flag="false"`. This will generate `x = 3`, `c = 'a'` and `flag = false` in C#. 
+4. Write numbers, chars and booleans directly as attribute values such as `x="3"`, `c="'a'"` and `flag="false"`. This will generate `x = 3`, `c = 'a'` and `flag = false` in C#. 
 
-5. if you want to write numeric and Boolean values as strings, you must enclose then with double single quotes such as `x="''3''"` and `flag="''3''"`. This will generate `x = "3"` and `flag = "false"` in C#.  
+5. if you want to write numbers and Boolean values as strings, you must enclose then with double single quotes such as `x="''3''"` and `flag="''true''"`. This will generate `x = "3"` and `flag = "true"` in C#.  
 
-6. Enclose date and time values with `##` notation such as `d="#1/1/2019#"`. This will generate `d = DateTime.Parse("1/1/2019", new System.Globalization.CultureInfo("en-US"))` in C#. It is clear that you must use the English-United stated culture when writing the date format inside the `##`.
+6. Enclose date and time values with `##` notation such as `d="#1/1/2019#"`. This will generate `d = DateTime.Parse("1/1/2019", new System.Globalization.CultureInfo("en-US"))` in C#. It is clear that you must use the English-United Stated culture when writing the date format inside the `##`.
 
 7. Use @ before variable names in attribute value, such as `s="@Name"` which will generate `s = Name` in the C# file.
 
 8. Any value except the above cases will be considered a string value such as `s="Name"`, which will generate `s = "Name"` in the C# file.
 
 9. I tried to make ZML syntax familiar to both VB.NET and C# programmers, so:
-a. You can use the basic type names of either VB or C#. For example, the attribute `type="Integer"` is an alternative equivalent for `type="int"`,
+a. You can use the basic type names of either VB or C#. For example, the attribute `type="Integer"` is an alternative equivalent to `type="int"`,
 
-b. You can use either VB or C# comparison expressions. For example the attribute `condition="a <> b andalso c = 3"` is an alternative equivalent for `condition="a != b && c = 3"`.
+b. You can use either VB or C# comparison expressions. For example the attribute `condition="a <> b andalso c = 3"` is an alternative equivalent to `condition="a != b && c == 3"`.
 
-c. You can use either VB or C# generic notation. For example the attribute `type="Enumerable(Of Integer)"` is an alternative equivalent for `type="Enumerable<int>"`, but note that the last expression can be used in .zml files but not in vbxml literals, where you need to use this workaround: `type=<%= "Enumerable<int>" %>`.
+c. You can use either VB or C# generic notation. For example the attribute `type="Enumerable(Of Integer)"` is an alternative equivalent to `type="Enumerable<int>"`, but note that the last expression can be used in .zml files but not in vbxml literals, where you need to use this workaround: `type=<%= "Enumerable<int>" %>`.
  
 But on the other hand, you have to use the C# indexer square brackets `[ ]` instead of VB brackets `( )` when you deal with collection items.
 
